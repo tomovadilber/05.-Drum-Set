@@ -1,0 +1,67 @@
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace firstProblemMidleExam
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            double money = double.Parse(Console.ReadLine());
+
+            List<int> quality = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+            List<int> initialQuality = new List<int>();
+
+            for (int i = 0; i < quality.Count; i++)
+            {
+                initialQuality.Add(quality[i]);
+            }
+
+
+            // initial quality*3 = price of a drum 
+
+            while (true)
+            {
+                string hitPower = (Console.ReadLine());
+                if (hitPower == "Hit it again, Gabsy!")
+                {
+                    break;
+                }
+                else
+                {
+                    for (int i = 0; i < quality.Count; i++)
+                    {
+                        quality[i] -= int.Parse(hitPower);
+                        if (quality[i] <= 0)
+                        {
+                            if (money >= (initialQuality[i] * 3))
+                            {
+                                money -= initialQuality[i] * 3;
+                                quality[i] = initialQuality[i];
+
+                            }
+                            else
+                            {
+                                quality.RemoveAt(i);
+                                initialQuality.RemoveAt(i);
+                                i--;
+                            }
+
+
+                        }
+                    }
+                }
+
+
+            }
+
+            Console.WriteLine(String.Join(' ', quality));
+            Console.WriteLine($"Gabsy has {money:f2}lv.");
+
+        }
+
+    }
+}
